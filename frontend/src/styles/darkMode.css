@@ -1,0 +1,105 @@
+/* Mode sombre */
+.dark {
+  /* Couleurs de fond */
+  --bg-primary: #111827;
+  --bg-secondary: #1F2937;
+  --bg-tertiary: #374151;
+  
+  /* Couleurs de texte */
+  --text-primary: #F9FAFB;
+  --text-secondary: #D1D5DB;
+  --text-tertiary: #9CA3AF;
+  
+  /* Couleurs de bordure */
+  --border-primary: #374151;
+  --border-secondary: #4B5563;
+  
+  /* Couleurs d'accentuation */
+  --accent-primary: #3B82F6;
+  --accent-secondary: #60A5FA;
+  --accent-tertiary: #93C5FD;
+  
+  /* Couleurs de succès */
+  --success-primary: #10B981;
+  --success-secondary: #34D399;
+  
+  /* Couleurs d'erreur */
+  --error-primary: #EF4444;
+  --error-secondary: #F87171;
+  
+  /* Couleurs d'avertissement */
+  --warning-primary: #F59E0B;
+  --warning-secondary: #FBBF24;
+  
+  /* Ombres */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  
+  /* Transitions */
+  --transition-colors: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+/* Classes utilitaires pour le mode sombre */
+.dark .dark:bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.dark .dark:bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.dark .dark:text-primary {
+  color: var(--text-primary);
+}
+
+.dark .dark:text-secondary {
+  color: var(--text-secondary);
+}
+
+.dark .dark:border-primary {
+  border-color: var(--border-primary);
+}
+
+.dark .dark:border-secondary {
+  border-color: var(--border-secondary);
+}
+
+/* Composants spécifiques en mode sombre */
+.dark .sidebar {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+.dark .navbar {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+.dark .card {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+.dark .input {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  color: var(--text-primary);
+}
+
+.dark .button-primary {
+  background-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.dark .button-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-secondary);
+}
+
+/* Transitions */
+.dark * {
+  transition: var(--transition-colors);
+}
