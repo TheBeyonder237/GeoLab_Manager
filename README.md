@@ -328,7 +328,7 @@ GeoLab_Manager/
 ### 1. Cloner le projet
 
 ```bash
-git clone https://github.com/votre-organisation/GeoLab_Manager.git
+git clone https://github.com/TheBeyonder237/GeoLab_Manager.git
 cd GeoLab_Manager
 ```
 
