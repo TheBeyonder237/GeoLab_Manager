@@ -3,26 +3,27 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Connexion à Amazon ECR...
-      # Connexion avec tes identifiants
-      - aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 374785127267.dkr.ecr.eu-west-3.amazonaws.com
+      - echo Connexion à Amazon ECR Public...
+      # Pour le public, la région doit TOUJOURS être us-east-1 pour le login (c'est une règle AWS)
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
       
-      # Définition des variables de dépôt
-      - REPOSITORY_URI=374785127267.dkr.ecr.eu-west-3.amazonaws.com/geolab-backend
+      # REMPLACE 'ton-alias-public' par l'alias que tu vois dans la console ECR Public
+      # Ça ressemble à : public.ecr.aws/v3j7x9z1/geolab-backend
+      - REPOSITORY_URI=public.ecr.aws/374785127267/geolab-backend
+      
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
 
   build:
     commands:
-      - echo Construction de l image Docker commencée le `date`
-      # On build l'image à partir du dossier backend
-      - docker build -t $REPOSITORY_URI:latest ./backend
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - echo Construction de l image Docker...
+      - docker build -t geolab-backend ./backend
+      - docker tag geolab-backend:latest $REPOSITORY_URI:latest
+      - docker tag geolab-backend:latest $REPOSITORY_URI:$IMAGE_TAG
 
   post_build:
     commands:
-      - echo Construction terminée le `date`
-      - echo Poussée de l image vers ECR...
+      - echo Poussée de l image vers ECR Public...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Terminé ! L image est sur ECR.
+      - echo Terminé !
