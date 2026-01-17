@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Connexion à Amazon ECR...
+      # Connexion avec tes identifiants
+      - aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 374785127267.dkr.ecr.eu-west-3.amazonaws.com
+      
+      # Définition des variables de dépôt
+      - REPOSITORY_URI=374785127267.dkr.ecr.eu-west-3.amazonaws.com/geolab-backend
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+
+  build:
+    commands:
+      - echo Construction de l image Docker commencée le `date`
+      # On build l'image à partir du dossier backend
+      - docker build -t $REPOSITORY_URI:latest ./backend
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+
+  post_build:
+    commands:
+      - echo Construction terminée le `date`
+      - echo Poussée de l image vers ECR...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Terminé ! L image est sur ECR.
